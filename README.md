@@ -74,6 +74,53 @@ urlpatterns = [
 ]
 ```
 
-Step 10:
-Create app/component in django:
-python manage.py startapp articles
+### Step 10:
+#### Create app/component in django:
+#### python manage.py startapp articles
+
+Step 11:
+
+```ecodivilas@000D202425:/mnt/c/Users/User_local/development/try-djangopython manage.py runserver
+Watching for file changes with StatReloader
+Performing system checks...
+
+System check identified no issues (0 silenced).
+
+You have 18 unapplied migration(s). Your project may not work properly until you apply the migrations for app(s): admin, auth, contenttypes, sessions.
+Run 'python manage.py migrate' to apply them.
+February 03, 2024 - 07:39:18
+Django version 3.2.23, using settings 'trydjango.settings'
+Starting development server at http://127.0.0.1:8000/
+Quit the server with CONTROL-C.
+ecodivilas@000D202425:/mnt/c/Users/User_local/development/try-django$ python manage.py migrate```
+
+# try-django.articles.models.py
+``` 
+from django.db import models
+
+# Create your models here.
+class Article(models.Model):
+    title = models.TextField()
+    content = models.TextField()
+```
+
+# try-django.settings.py
+```
+# Application definition
+
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'articles',
+]
+
+...
+```
+
+```python manage.py makemigrations --dry-run```
+```python manage.py makemigrations```
+```python manage.py migrate```

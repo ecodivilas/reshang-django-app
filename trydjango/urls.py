@@ -16,11 +16,27 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from accounts.views import (
+    login_view,
+    logout_view,
+    register_view
+)
+from articles.views import (
+    article_create_view,
+    article_detail_view,
+    article_search_view
+)
 from .views import home_view
-from .views import login_view
+# from .views import login_view
 
 urlpatterns = [
-    path('', home_view), # index / home /root 
-    path('login/', login_view),
+    path('', home_view), # index / home /root
+    path('articles/', article_search_view), # index / articles
+    path('articles/create/', article_create_view),
+    path('articles/<int:id>/', article_detail_view), # index / articles
+    # re_path(r'articles/?P<id>\d+)/$', home_view)
     path('admin/', admin.site.urls),
+    path('login/', login_view),
+    path('logout/', logout_view),
+    path('register/', register_view),
 ]

@@ -2,25 +2,50 @@
 To render html web pages
 """
 import random
-from datetime import date
 
 from django.http import HttpResponse
+from django.template.loader import render_to_string
+from articles.models import Article
 
-def home_view(request):
+def article_home_view(request):
+    return HttpResponse()
+
+def home_view(request, id=None, *args, **kwargs):
     """
     Take in a request (Django sends request)
     Return HTML as a response(We pict to return the response)
     """
-    name = "Ely"
-    number = random.randint(10, 1232323) # API call to some rest API with python & python requests
-    today =  date.today()
-    HTML_STRING = f"""
-    <h1>Hello {name}</h1>
-    <h2>Random Number: {number}</h2>
-    <h2>Date Today: {today}</h2>
-    """
 
-    print(3434*744737)
+    print(id)
+    name = "Ely"
+    number = random.randint(1, 4) # API call to some rest API with python & python requests
+    article_obj = Article.objects.get(id=number)
+    article_queryset = Article.objects.all()
+    
+    context = {
+        "object_list": article_queryset,
+        "object": article_obj,
+        "title": article_obj.title,
+        "id": article_obj.id,
+        "content": article_obj.content,
+    }
+
+    # Django Templates
+    # tmpl = get_template("home-view.html")
+    # tmpl_string = tmpl.render(context=context)
+    # tmpl_string2 = tmpl.render(context=context2)
+    # tmpl_string3 = tmpl.render(context=context3)
+
+    HTML_STRING = render_to_string(
+        "home-view.html",
+        context=context
+    )
+
+    # HTML_STRING = """
+    # <h1>{title} id: ({id})</h1>
+    # <p>{content}</p>
+    # """.format(**context)
+
     return HttpResponse(HTML_STRING)
 
 def login_view(request):
